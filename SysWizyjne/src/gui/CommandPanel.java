@@ -13,6 +13,8 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import algorithms.Algorithm;
+import algorithms.CDL;
+import algorithms.Disney;
 
 public class CommandPanel extends JPanel
 {
@@ -50,8 +52,8 @@ public class CommandPanel extends JPanel
 		
 		_fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
 		
-		//_comboBox.addItem(new DisneyAlgorithm());
-		//_comboBox.addItem(new CDLAlgorithm());
+		_comboBox.addItem(new Disney());
+		_comboBox.addItem(new CDL());
 		
 		_openButton.addActionListener(new ActionListener()
 		{
@@ -90,7 +92,7 @@ public class CommandPanel extends JPanel
 					else
 					{
 						Algorithm algorithm=(Algorithm)_comboBox.getSelectedItem();
-						//_drawPanel.draw(algorithm.compute(_fileList));
+						_drawPanel.draw(algorithm.compute(_fileList));
 					}
 				}				
 			}
