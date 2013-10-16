@@ -56,6 +56,10 @@ public class GraphicIO
 		catch (IOException e) 
 		{
 		}
+		catch (OutOfMemoryError f)
+		{
+			System.out.println("Brakuje mi stosu dziadzie");
+		}
 		return images;		
 	}
 	

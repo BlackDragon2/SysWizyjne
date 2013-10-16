@@ -1,6 +1,8 @@
 package gui;
 
-import java.awt.Image;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.image.BufferedImage;
 
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -11,6 +13,7 @@ public class DrawPanel extends JScrollPane
 	 * 
 	 */
 	private static final long serialVersionUID = 5596101897343033330L;
+	private BufferedImage _image;
 
 	public DrawPanel() 
 	{
@@ -25,9 +28,18 @@ public class DrawPanel extends JScrollPane
 		setViewportView(panel);	
 	}
 
-	public void draw(Image compute) 
+	public void draw(BufferedImage image) 
 	{
-		
+		_image=image;
+		repaint();
 	}
+	
+    @Override
+    public void paintComponent(Graphics g)
+    {
+           Graphics2D g2 = (Graphics2D)g;
+            g2.drawImage(_image, 0,0, this);
+ 
+     }
 
 }
