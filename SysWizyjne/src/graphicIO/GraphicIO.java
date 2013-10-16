@@ -8,6 +8,17 @@ import javax.imageio.ImageIO;
 
 public class GraphicIO 
 {
+	
+	public static void saveImage(BufferedImage image)
+	{
+		 File outputfile = new File("D:\\saved.jpg");
+		 try {
+			ImageIO.write(image, "jpg", outputfile);
+		} catch (IOException e) 
+		{
+			System.out.println("Image saving failed");
+		}
+	}
 	public static BufferedImage createImage(int[][] points)
 	{
 		BufferedImage image=new BufferedImage(points.length, points[0].length, BufferedImage.TYPE_INT_RGB);

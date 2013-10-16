@@ -1,7 +1,5 @@
 package algorithms;
 
-import graphicIO.GraphicIO;
-
 import java.awt.image.BufferedImage;
 import java.io.File;
 
@@ -15,7 +13,6 @@ public abstract class Algorithm
 		for(int x=0; x<img.length; x++)
 			for(int y=0; y<img[x].length; y++)
 				image.setRGB(x, y, img[x][y]);
-		System.out.println(image.getRGB(0,0));
 		return image;
 	}
 	
