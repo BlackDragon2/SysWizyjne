@@ -10,20 +10,25 @@ public class CDL extends Algorithm
 
 	@Override
 	public int[][] transform(File[] files) 
-	{
-		int[][] epi=new int[files.length][];
-		BufferedImage image=null;
-		for(int i=0; i<files.length;i++)
+	{		
+		BufferedImage image=GraphicIO.getImage(files[0]);
+		int[][][] epi=new int[image.getHeight()][image.getWidth()][files.length];
+		for(int y=0; y<image.getHeight();y++)
+		{
+			for(int x=0; x<image.getWidth(); x++)
+				epi[y][x][0]=image.getRGB(x, y);
+		}
+		for(int i=1; i<files.length;i++)
 		{
 			image=GraphicIO.getImage(files[i]);
-			epi[i]=new int[image.getWidth()];
-			for(int x=0; x<image.getWidth();x++)
+			for(int y=0; y<image.getHeight();y++)
 			{
-				epi[i][x]=image.getRGB(x, 500);
+				for(int x=0; x<image.getWidth(); x++)
+					epi[y][x][i]=image.getRGB(x, y);
 			}
 			System.out.println("image "+i+" done");
 		}
-		return epi;		
+		return epi[0];		
 	}
 
 }
