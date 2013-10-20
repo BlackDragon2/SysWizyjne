@@ -1,0 +1,16 @@
+Wizja tego calego systemu
+
+1 Tworzymy mape glebokosci z Disney'a i\lub CDL
+
+2 Znalazlem algorytm (nawet z kodem C++) robiacy triangulacje (a wlasciwie kwadro-costam) ktory dziala na zbiorze punktow w (X,Y,Z),
+Mozemy z mapy glebokosci (albo jakims algorytmem albo sami jakos na wyczucie) sprobkowac i stworzyc zestaw takich punktow.
+
+3 Jak zostanie czas mozna pobawic sie algorytmem genetycznym i stworzyc ladne textury pod 3D
+
+Problemy:
+
+1 Przede wszystkim nie mam pojecia jak zrobic mape do okola obiektu (tzn jak skleic pare map zeby z "plaskorzezby" wyszedl model przestrzenny
+
+2 Przydaloby sie tez narzedzie pozwalajace wyciac jakis obiekt z tla (tzn chcemy naprzyklad sam samochod lego bez tla i innych obiektow)
+Moj pomysl na to jest taki, zeby na panelu w javie zrobic mozliwosc zaznaczenia obszaru, a potem na obraz puscic filtr krawedziowy i obciac
+obraz do samej czesci zawierajacej krawedzi. 
