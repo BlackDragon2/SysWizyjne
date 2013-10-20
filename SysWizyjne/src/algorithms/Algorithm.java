@@ -16,6 +16,9 @@ public abstract class Algorithm
 		return image;
 	}
 	
+
+
+	
 	public abstract int[][] transform(File[] files);
 
 }
