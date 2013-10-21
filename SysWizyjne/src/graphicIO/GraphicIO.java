@@ -9,16 +9,20 @@ import javax.imageio.ImageIO;
 public class GraphicIO 
 {
 	
-	public static void saveImage(BufferedImage image)
+	public static void saveImage(BufferedImage image, File file)
 	{
-		 File outputfile = new File("D:\\saved.jpg");
-		 try {
-			ImageIO.write(image, "jpg", outputfile);
-		} catch (IOException e) 
+		try 
+		{
+			file.createNewFile();
+			ImageIO.write(image, "jpg", file);
+		} 
+		catch (IOException e1) 
 		{
 			System.out.println("Image saving failed");
+			e1.printStackTrace();			
 		}
 	}
+	
 	public static BufferedImage createImage(int[][] points)
 	{
 		BufferedImage image=new BufferedImage(points.length, points[0].length, BufferedImage.TYPE_INT_RGB);
@@ -62,7 +66,10 @@ public class GraphicIO
 		{
 			images=new BufferedImage[files.length];
 			for(int i=0;i<files.length;i++)
-				images[i] = ImageIO.read(files[i]);
+			{
+				if(files[i].getAbsolutePath().contains("jpg"))
+					images[i] = ImageIO.read(files[i]);
+			}
 		} 
 		catch (IOException e) 
 		{

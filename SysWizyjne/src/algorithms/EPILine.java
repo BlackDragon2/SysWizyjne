@@ -3,8 +3,11 @@ package algorithms;
 import graphicIO.GraphicIO;
 
 import java.awt.image.BufferedImage;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Scanner;
 
 public class EPILine 
@@ -30,7 +33,7 @@ public class EPILine
 	public EPILine(File directory, int line, Position position)
 	{
 		String name=directory.getName();
-		File file=new File(directory.getAbsolutePath()+"\\"+name+"_"+line+"_"+position.toString()+".txt");
+		File file=new File(directory.getAbsolutePath(),name+"_"+line+"_"+position.toString()+".txt");
 		if(file.exists())
 			loadEPILine(file);
 		else
@@ -47,7 +50,34 @@ public class EPILine
 
 	public void saveEPILine(File directory)
 	{
-		
+		String name=directory.getName();
+		File file=new File(directory, name+"_"+_line+"_"+_position.toString()+".txt");
+		if(!file.exists())
+		{
+			try 
+			{
+				BufferedWriter writer = new BufferedWriter(new FileWriter(file));
+				writer.write(_pixels.length);
+				writer.newLine();
+				writer.write(_pixels[0].length);
+				writer.newLine();
+				for(int i=0;i<_pixels.length;i++)
+					for(int j=0;j<_pixels[0].length;j++)
+					{
+						writer.write(_pixels[i][j]);
+						writer.write(",");
+					}
+				writer.close();						
+			} catch (FileNotFoundException e) 
+			{
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 	}
 	
 	public void loadEPILine(File file)
