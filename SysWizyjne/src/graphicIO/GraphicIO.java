@@ -59,41 +59,4 @@ public class GraphicIO
 		return img;		
 	}
 	
-	public static BufferedImage[] getImages(File[] files)
-	{
-		BufferedImage[] images = null;
-		try 
-		{
-			images=new BufferedImage[files.length];
-			for(int i=0;i<files.length;i++)
-			{
-				if(files[i].getAbsolutePath().contains("jpg"))
-					images[i] = ImageIO.read(files[i]);
-			}
-		} 
-		catch (IOException e) 
-		{
-		}
-		catch (OutOfMemoryError f)
-		{
-			System.out.println("Brakuje mi stosu dziadzie");
-		}
-		return images;		
-	}
-	
-	//obrazy rgb zapisane w tablicy kolejno nr obrazu, x, y, wartoœæ rgb
-	public static int[][][] getImagesInArray(File[] files)
-	{
-		int[][][] imgs = null;
-		BufferedImage[] images = getImages(files);
-		imgs=new int[files.length][][];
-		for(int i=0;i<files.length;i++)
-		{
-			imgs[i]=new int[images[i].getWidth()][images[i].getHeight()];
-			for(int x=0; x<images[i].getWidth();x++)
-				for(int y=0; y<images[i].getHeight(); y++)
-					imgs[i][x][y]=images[i].getRGB(x, y);
-		}
-		return imgs;			
-	}
 }

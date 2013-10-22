@@ -25,46 +25,45 @@ public class EPILine
 		
 	}
 	
-	public EPILine(BufferedImage[] images, int line, Position position)
-	{
-		createEPILine(images, line, position);
-	}
-	
 	public EPILine(File directory, int line, Position position)
 	{
 		String name=directory.getName();
-		File file=new File(directory.getAbsolutePath(),name+"_"+line+"_"+position.toString()+".txt");
+		File file=new File(directory.getAbsolutePath(),name.replace("_", "")+"_"+line+"_"+position.toString()+".txt");
 		if(file.exists())
 			loadEPILine(file);
 		else
-			createEPILine(GraphicIO.getImages(directory.listFiles()), line, position);
-			
+			createEPILine(directory.listFiles(), line, position);			
 	}
 	
-	private void createEPILine(BufferedImage[] images, int line, Position position) 
+	public EPILine(File[] files, int line, Position position) 
+	{
+		createEPILine(files, line, position);
+	}
+
+	private void createEPILine(File[] files, int line, Position position) 
 	{
 		_position=position;
 		_line=line;
-		_pixels=position==Position.HORIZONTAL? createHorizontalEPI(images, line):createVerticalEPI(images, line);
+		_pixels=position==Position.HORIZONTAL? createHorizontalEPI(files, line):createVerticalEPI(files, line);
 	}
 
 	public void saveEPILine(File directory)
 	{
 		String name=directory.getName();
-		File file=new File(directory, name+"_"+_line+"_"+_position.toString()+".txt");
+		File file=new File(directory, name.replace("_", "")+"_"+_line+"_"+_position.toString()+".txt");
 		if(!file.exists())
 		{
 			try 
 			{
 				BufferedWriter writer = new BufferedWriter(new FileWriter(file));
-				writer.write(_pixels.length);
+				writer.write(String.valueOf(_pixels.length));
 				writer.newLine();
-				writer.write(_pixels[0].length);
+				writer.write(String.valueOf(_pixels[0].length));
 				writer.newLine();
 				for(int i=0;i<_pixels.length;i++)
 					for(int j=0;j<_pixels[0].length;j++)
 					{
-						writer.write(_pixels[i][j]);
+						writer.write(String.valueOf(_pixels[i][j]));
 						writer.write(",");
 					}
 				writer.close();						
@@ -113,7 +112,7 @@ public class EPILine
 		_pixels=result;
 		name=name.substring(0,name.lastIndexOf("."));
 		String[] split=name.split("_");
-		_line=Integer.parseInt(split[1]);
+		_line=Integer.parseInt(split[1])+1;
 		_position=Position.valueOf(split[2]);
 		
 	}
@@ -139,22 +138,30 @@ public class EPILine
 	}
 
 	//EPI line with x*,s*
-	private int[][] createVerticalEPI(BufferedImage[] images, int x)
+	private int[][] createVerticalEPI(File[] files, int x)
 	{
-		int[][] result=new int[images.length][images[0].getHeight()];
-		for(int i=0;i<images.length;i++)
-			for(int y=0;y<images[0].getHeight();y++)
-				result[i][y]=images[i].getRGB(x, y);
+		BufferedImage image=GraphicIO.getImage(files[0]);
+		int[][] result=new int[files.length][image.getHeight()];
+		for(int i=0;i<files.length;i++)
+		{
+			image=GraphicIO.getImage(files[i]);
+			for(int y=0;y<image.getHeight();y++)
+				result[i][y]=image.getRGB(x, y);
+		}
 		return result;
 	}
 	
 	//EPI line with y*,t*
-	private int[][] createHorizontalEPI(BufferedImage[] images, int y)
+	private int[][] createHorizontalEPI(File[] files, int y)
 	{
-		int[][] result=new int[images.length][images[0].getWidth()];
-		for(int i=0;i<images.length;i++)
-			for(int x=0;x<images[0].getWidth();x++)
-				result[i][x]=images[i].getRGB(x, y);
+		BufferedImage image=GraphicIO.getImage(files[0]);
+		int[][] result=new int[files.length][image.getWidth()];
+		for(int i=0;i<files.length;i++)
+		{
+			image=GraphicIO.getImage(files[i]);		
+			for(int x=0;x<image.getWidth();x++)
+				result[i][x]=image.getRGB(x, y);
+		}
 		return result;
 	}
 	
