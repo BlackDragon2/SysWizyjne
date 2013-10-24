@@ -10,13 +10,28 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
 
+/**
+ * Class representing single EPI image created around an EPI line y* or x*
+ * @author Bartek
+ * @version 1.0
+ */
 public class EPILine 
 {
+	/*
+	 * _position - Axis along which EPI line was taken e.g. HORIZONTAL
+	 * _pixels - matrix representing the image
+	 * _line - base EPI line e.g. y*=50
+	 */
 	private Position _position;
 	private int[][] _pixels;
 	private int _line;
 	
-	
+	/**
+	 * Constructor creating an EPILine
+	 * @param pixels Matrix of RGB values representing an image
+	 * @param line Base line of an EPI image e.g. y*=50
+	 * @param position Axis along which EPI line was taken e.g. HORIZONTAL
+	 */
 	public EPILine(int[][] pixels, int line, Position position)
 	{
 		_position=position;
@@ -25,6 +40,12 @@ public class EPILine
 		
 	}
 	
+	/**
+	 * Constructor creating an EPILine
+	 * @param directory Directory where source images are saved
+	 * @param line Base line of an EPI image e.g. y*=50
+	 * @param position Axis along which EPI line was taken e.g. HORIZONTAL
+	 */
 	public EPILine(File directory, int line, Position position)
 	{
 		String name=directory.getName();
@@ -32,21 +53,26 @@ public class EPILine
 		if(file.exists())
 			loadEPILine(file);
 		else
-			createEPILine(directory.listFiles(), line, position);			
+			createEPILine(directory, line, position);			
 	}
 	
-	public EPILine(File[] files, int line, Position position) 
-	{
-		createEPILine(files, line, position);
-	}
-
-	private void createEPILine(File[] files, int line, Position position) 
+	/**
+	 * Method setting EPI line's values, supposed to be used by multiple constructors.
+	 * @param directory Directory where source images are saved
+	 * @param line Base line of an EPI image e.g. y*=50
+	 * @param position Axis along which EPI line was taken e.g. HORIZONTAL
+	 */
+	private void createEPILine(File directory, int line, Position position) 
 	{
 		_position=position;
 		_line=line;
-		_pixels=position==Position.HORIZONTAL? createHorizontalEPI(files, line):createVerticalEPI(files, line);
+		_pixels=position==Position.HORIZONTAL? createHorizontalEPI(new File(directory,position.toString()), line):createVerticalEPI(new File(directory,position.toString()), line);
 	}
 
+	/**
+	 * Method saving current object on the disc.
+	 * @param directory Directory under which EPI should be saved.
+	 */
 	public void saveEPILine(File directory)
 	{
 		String name=directory.getName();
@@ -79,6 +105,11 @@ public class EPILine
 		}
 	}
 	
+	
+	/**
+	 * Method setting object's fields from file on disc.
+	 * @param file File with EPI.
+	 */
 	public void loadEPILine(File file)
 	{
 		String name=file.getName();
@@ -110,6 +141,8 @@ public class EPILine
 			e.printStackTrace();
 		}
 		_pixels=result;
+		
+		//That's why I needed to get rid of "_" in directory name
 		name=name.substring(0,name.lastIndexOf("."));
 		String[] split=name.split("_");
 		_line=Integer.parseInt(split[1])+1;
@@ -137,9 +170,15 @@ public class EPILine
 		this._line = _line;
 	}
 
-	//EPI line with x*,s*
-	private int[][] createVerticalEPI(File[] files, int x)
+	/**
+	 * EPI line with x*,s*
+	 * @param directory Directory with source images
+	 * @param x Const EPI line x*.
+	 * @return Return EPI(y,t) with x*,s* as an two-dimensional array of RGB values
+	 */
+	private int[][] createVerticalEPI(File directory, int x)
 	{
+		File[] files=directory.listFiles();
 		BufferedImage image=GraphicIO.getImage(files[0]);
 		int[][] result=new int[files.length][image.getHeight()];
 		for(int i=0;i<files.length;i++)
@@ -151,9 +190,15 @@ public class EPILine
 		return result;
 	}
 	
-	//EPI line with y*,t*
-	private int[][] createHorizontalEPI(File[] files, int y)
+	/**
+	 * EPI line with y*,t*
+	 * @param directory Directory with source images
+	 * @param x Const EPI line y*.
+	 * @return Return EPI(x,s) with y*,t* as an two-dimensional array of RGB values
+	 */
+	private int[][] createHorizontalEPI(File directory, int y)
 	{
+		File[] files=directory.listFiles();
 		BufferedImage image=GraphicIO.getImage(files[0]);
 		int[][] result=new int[files.length][image.getWidth()];
 		for(int i=0;i<files.length;i++)
@@ -165,6 +210,10 @@ public class EPILine
 		return result;
 	}
 	
+	/**
+	 * Methods checking if EPI is HORIZONTAL or VERTICAL
+	 * @return true if EPI is HORIZONTAL, false if VERTICAL
+	 */
 	public boolean isHorizontal()
 	{
 		return _position==Position.HORIZONTAL;

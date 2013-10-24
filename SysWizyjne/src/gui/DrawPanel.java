@@ -4,11 +4,13 @@ import java.awt.image.BufferedImage;
 
 import javax.swing.JScrollPane;
 
+/**
+ * ScrollPanel containing ImagePanel on which result images should be displayed.
+ * @author Bartek
+ * @version 1.1
+ */
 public class DrawPanel extends JScrollPane
 {
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 5596101897343033330L;
 	private ImagePanel _panel;
 

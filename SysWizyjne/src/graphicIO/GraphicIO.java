@@ -6,9 +6,19 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
+/**
+ * Class supporting loading and saving image/images. All methods are static.
+ * @author Bartek
+ * @version 1.0
+ */
 public class GraphicIO 
 {
 	
+	/**
+	 * Method saving image on disc as indicated file
+	 * @param image Image to be saved.
+	 * @param file Path under which image should be saved.
+	 */
 	public static void saveImage(BufferedImage image, File file)
 	{
 		try 
@@ -23,6 +33,11 @@ public class GraphicIO
 		}
 	}
 	
+	/**
+	 * Method creating an image from an two-dimensional array of RGB values.
+	 * @param points Two-dimensional array of RGB values.
+	 * @return Image corresponding to the array.
+	 */
 	public static BufferedImage createImage(int[][] points)
 	{
 		BufferedImage image=new BufferedImage(points.length, points[0].length, BufferedImage.TYPE_INT_RGB);
@@ -33,6 +48,11 @@ public class GraphicIO
 		
 	}
 	
+	/**
+	 * Method loading image from the disc.
+	 * @param file File to be loaded.
+	 * @return Loaded image.
+	 */
 	public static BufferedImage getImage(File file)
 	{
 		BufferedImage image = null;
@@ -47,7 +67,11 @@ public class GraphicIO
 		
 	}
 	
-	//obraz rgb zapisany w tablicy kolejno x, y, wartoœæ rgb
+	/**
+	 * Method transforming an image to two-dimensional array.
+	 * @param file Image to be transformed.
+	 * @return Two-dimensional array of RBG representing the image.
+	 */
 	public static int[][] getImageInArray(File file)
 	{
 		int[][] img=null;
@@ -57,6 +81,5 @@ public class GraphicIO
 			for(int y=0;y<image.getHeight();y++)
 				img[x][y]=image.getRGB(x, y);
 		return img;		
-	}
-	
+	}	
 }

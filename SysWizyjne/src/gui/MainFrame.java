@@ -9,11 +9,13 @@ import javax.swing.JFrame;
 
 import org.w3c.dom.DOMException;
 
+/**
+ * Main window of the application.
+ * @author Bartek
+ * @version 1.0
+ */
 public class MainFrame extends JFrame
 {
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1414097905694258877L;
 
 	public static final int COMMAND_PANEL_WIDTH=150;

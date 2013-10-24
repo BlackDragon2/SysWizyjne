@@ -6,11 +6,13 @@ import java.awt.image.BufferedImage;
 
 import javax.swing.JPanel;
 
+/**
+ * Panel on which result images should be displayed.
+ * @author Bartek
+ * @version 1.0
+ */
 public class ImagePanel extends JPanel 
 {
-    /**
-	 * 
-	 */
 	private static final long serialVersionUID = 3006769532505931833L;
 	private BufferedImage _image;
  

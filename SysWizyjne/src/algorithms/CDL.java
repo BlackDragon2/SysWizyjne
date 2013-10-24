@@ -2,15 +2,19 @@ package algorithms;
 
 import java.io.File;
 
+/**
+ * Realization of CDL algorithm, extending class algorithm and implementing transform method.
+ * @author Bartek
+ * @version 1.0
+ */
 public class CDL extends Algorithm 
 {
 
 	@Override
-	public int[][] transform(File[] files) 
+	public int[][] transform(File directory, Position position) 
 	{
-		createEPI(files, Position.HORIZONTAL);
-		EPILine epi=new EPILine(files, 500, Position.HORIZONTAL);
-		return epi.get_pixels();
+		
+		return null;
 	
 	}
 
