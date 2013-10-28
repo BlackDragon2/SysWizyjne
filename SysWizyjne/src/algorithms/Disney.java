@@ -2,6 +2,8 @@ package algorithms;
 
 import java.io.File;
 
+import enums.Position;
+
 /**
  * Realization of Disney algorithm, extending class algorithm and implementing transform method.
  * @author Bartek

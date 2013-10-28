@@ -1,4 +1,4 @@
-package algorithms;
+package enums;
 
 /**
  * Enum class representing Axis (orientation) along which EPIs are created.
@@ -7,9 +7,9 @@ package algorithms;
  */
 public enum Position 
 {
-	HORIZONTAL("Horizontal"),
-	VERTICAL("Vertical"),
-	BOTH("Both");
+	HORIZONTAL("HORIZONTAL"),
+	VERTICAL("VERTICAL"),
+	BOTH("BOTH");
 	
 	private final String name;
 	

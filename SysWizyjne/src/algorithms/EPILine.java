@@ -1,5 +1,6 @@
 package algorithms;
 
+import enums.Position;
 import graphicIO.GraphicIO;
 
 import java.awt.image.BufferedImage;
@@ -121,19 +122,13 @@ public class EPILine
 			int width=scanner.nextInt();
 			result=new int[size][width];
 			scanner.useDelimiter(",");
-			int i=0;
-			int j=0;
-			while(scanner.hasNext())
-			{
-				result[i][j]=scanner.nextInt();
-				j++;
-				if(j==width)
+			String temp;
+			for(int i=0;i<size;i++)
+				for(int j=0;j<width;j++)
 				{
-					i++;
-					j=0;
+					temp=scanner.next();
+					result[i][j]=Integer.parseInt(temp.trim());
 				}
-				
-			}
 			scanner.close();	
 		} catch (FileNotFoundException e) 
 		{

@@ -88,6 +88,44 @@ public class MathUtilities
 		}
 		return result;
 	}
+	
+	/**
+	 * Method calculating convolution.
+	 * @param mask Matrix representing input mask.
+	 * @param matrix Matrix representing the image.
+	 * @return Two-dimensional matrix, result of convolution.
+	 */
+	public static double[][] convolution(double[][] mask, int[][] matrix)
+	{
+		double[][] result;
+		result=new double[matrix.length][matrix[0].length];
+		int width=matrix.length;
+		int height=matrix[0].length;
+		int w=(mask.length-1)/2;
+		int h=(mask[0].length-1)/2;
+		double sum=0.0;
+		
+		mask=normalize(mask);
+		
+		for(int y=0;y<height;y++)
+		{
+			for(int x=0;x<width;x++)
+			{
+				sum=0.0;
+				for(int i=-h;i<h;i++)
+				{
+					for(int j=-w;j<w;j++)
+					{
+						if(x-j>=0&&y-i>=0&&x-j<width&&y-i<height)
+							sum+=mask[j+w][i+h]*matrix[x-j][y-i];
+					}
+				}
+				result[x][y]=sum;				
+			}
+		}
+		return result;
+	}
+
 
 	/**
 	 * Method normalizing matrix e.g. mask
@@ -95,6 +133,26 @@ public class MathUtilities
 	 * @return Normalized matrix.
 	 */
 	public static double[][] normalize(double[][] matrix) 
+	{
+		int width=matrix.length;
+		int height=matrix[0].length;
+		double[][] result=new double[width][height];
+		double sum=0.0;
+		for(int i=0;i<width;i++)
+			for(int j=0;j<height;j++)
+				sum+=matrix[i][j];
+		for(int i=0;i<width;i++)
+			for(int j=0;j<height;j++)
+				result[i][j]=matrix[i][j]/sum;
+		return result;
+	}
+	
+	/**
+	 * Method normalizing matrix e.g. mask
+	 * @param matrix Matrix to be normalized.
+	 * @return Normalized matrix.
+	 */
+	public static double[][] normalize(int[][] matrix) 
 	{
 		int width=matrix.length;
 		int height=matrix[0].length;

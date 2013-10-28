@@ -13,10 +13,10 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import enums.Position;
 import algorithms.Algorithm;
 import algorithms.CDL;
 import algorithms.Disney;
-import algorithms.Position;
 
 /**
  * Command panel

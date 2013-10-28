@@ -1,5 +1,6 @@
 package algorithms;
 
+import enums.Position;
 import graphicIO.GraphicIO;
 
 import java.awt.image.BufferedImage;
