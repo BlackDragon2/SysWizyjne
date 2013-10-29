@@ -88,9 +88,9 @@ public abstract class Algorithm
 					try 
 					{
 						writer=new BufferedWriter(new FileWriter(writeFiles[y], true));
-						writer.write(String.valueOf(width));
-						writer.newLine();
 						writer.write(String.valueOf(filesNR));
+						writer.newLine();
+						writer.write(String.valueOf(width));
 						writer.newLine();
 						writer.close();
 					} 
@@ -160,14 +160,14 @@ public abstract class Algorithm
 				}
 				
 				//save size of matrix/image
-				for(int x=0;x<height;x++)
+				for(int x=0;x<width;x++)
 				{
 					try 
 					{
 						writer=new BufferedWriter(new FileWriter(writeFiles[x], true));
-						writer.write(String.valueOf(height));
+						writer.write(String.valueOf(filesNR));						
 						writer.newLine();
-						writer.write(String.valueOf(filesNR));
+						writer.write(String.valueOf(height));
 						writer.newLine();
 						writer.close();
 					} 

@@ -119,7 +119,7 @@ public class EPILine
 		{
 			Scanner scanner=new Scanner(file);
 			int size=scanner.nextInt();
-			int width=scanner.nextInt();
+			int width=scanner.nextInt();			
 			result=new int[size][width];
 			scanner.useDelimiter(",");
 			String temp;

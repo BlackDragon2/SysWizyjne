@@ -6,6 +6,8 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
+import enums.Position;
+
 /**
  * Class supporting loading and saving image/images. All methods are static.
  * @author Bartek
@@ -41,6 +43,46 @@ public class GraphicIO
 	public static BufferedImage createImage(int[][] points)
 	{
 		BufferedImage image=new BufferedImage(points.length, points[0].length, BufferedImage.TYPE_INT_RGB);
+		for(int x=0; x<points.length; x++)
+			for(int y=0; y<points[0].length;y++)
+				image.setRGB(x, y, points[x][y]);
+		return image;		
+	}
+	
+	/**
+	 * Method creating an EPI-image from an two-dimensional array of RGB values.
+	 * @param points Two-dimensional array of RGB values.
+	 * @param position orientation of EPI
+	 * @return Image corresponding to the array.
+	 */
+	public static BufferedImage createImage(int[][] points, Position position)
+	{
+		BufferedImage image;
+		if(position==Position.HORIZONTAL)
+		{
+			image=new BufferedImage(points[0].length, points.length, BufferedImage.TYPE_INT_RGB);
+			for(int i=0; i<points.length; i++)
+				for(int x=0; x<points[0].length;x++)
+					image.setRGB(x, i, points[i][x]);
+		}
+		else
+		{
+			image=new BufferedImage(points.length, points[0].length, BufferedImage.TYPE_INT_RGB);
+			for(int y=0; y<points.length; y++)
+				for(int i=0; i<points[0].length;i++)
+					image.setRGB(i, y, points[i][y]);
+		}
+		return image;		
+	}
+	
+	/**
+	 * Method creating a greyscale image from an two-dimensional array of RGB values.
+	 * @param points Two-dimensional array of RGB values.
+	 * @return Image corresponding to the array.
+	 */
+	public static BufferedImage createGreyscaleImage(int[][] points)
+	{
+		BufferedImage image=new BufferedImage(points.length, points[0].length, BufferedImage.TYPE_BYTE_GRAY);
 		for(int x=0; x<points.length; x++)
 			for(int y=0; y<points[0].length;y++)
 				image.setRGB(x, y, points[x][y]);

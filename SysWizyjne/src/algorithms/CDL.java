@@ -1,9 +1,14 @@
 package algorithms;
 
+import enums.GradientMask;
+import enums.GreyMethod;
 import enums.Position;
 import graphicIO.GraphicIO;
 
 import java.io.File;
+
+import utils.GraphicUtilities;
+import utils.MathUtilities;
 
 /**
  * Realization of CDL algorithm, extending class algorithm and implementing transform method.
@@ -16,8 +21,7 @@ public class CDL extends Algorithm
 	@Override
 	public int[][] transform(File directory, Position position) 
 	{
-		EPILine epi=new EPILine(directory, 500, position);
-		GraphicIO.saveImage(GraphicIO.createImage(epi.get_pixels()), new File("D:\\images\\x.jpg"));
+		
 		return null;
 	
 	}

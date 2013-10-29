@@ -97,6 +97,15 @@ public class GraphicUtilities
 		return greyResult;
 		
 	}
+	
+	public static int[][] toGreyScale(int[][] matrix, GreyMethod method)
+	{
+		int[][] result=new int[matrix.length][matrix[0].length];
+		for(int i=0;i<matrix.length;i++)
+			for(int j=0;j<matrix[0].length;j++)
+				result[i][j]=toGreyScale(matrix[i][j], method);
+		return result;
+	}
 
 	private static int min(int red, int green, int blue) 
 	{

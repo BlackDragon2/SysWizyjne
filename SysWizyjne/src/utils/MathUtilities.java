@@ -37,7 +37,7 @@ public class MathUtilities
 				power=(Math.pow((-width)/2+i,2)+Math.pow((-height)/2+j,2))/(2*Math.pow(phi, 2));
 				result[i][j]=(double)(1/(2*Math.PI*phi*phi)*Math.pow(Math.E, power));
 			}
-		}
+		}System.out.println("gauss ended");
 		return result;
 	}
 	
@@ -48,7 +48,7 @@ public class MathUtilities
 	 * @return Two-dimensional matrix of [size]x[size], containing Gaussian smoothing operator values.
 	 */
 	public static double[][] GaussianMatrix(double phi, int size)
-	{
+	{System.out.println("gauss started");
 		return GaussianMatrix(phi, size, size);
 	}
 	
@@ -59,7 +59,7 @@ public class MathUtilities
 	 * @return Two-dimensional matrix, result of convolution.
 	 */
 	public static double[][] convolution(double[][] mask, double[][] matrix)
-	{
+	{System.out.println("con started");
 		double[][] result;
 		result=new double[matrix.length][matrix[0].length];
 		int width=matrix.length;
@@ -85,7 +85,7 @@ public class MathUtilities
 				}
 				result[x][y]=sum;				
 			}
-		}
+		}System.out.println("con ended");
 		return result;
 	}
 	
@@ -96,7 +96,7 @@ public class MathUtilities
 	 * @return Two-dimensional matrix, result of convolution.
 	 */
 	public static double[][] convolution(double[][] mask, int[][] matrix)
-	{
+	{System.out.println("con started");
 		double[][] result;
 		result=new double[matrix.length][matrix[0].length];
 		int width=matrix.length;
@@ -122,7 +122,7 @@ public class MathUtilities
 				}
 				result[x][y]=sum;				
 			}
-		}
+		}System.out.println("con ended");
 		return result;
 	}
 
@@ -164,6 +164,15 @@ public class MathUtilities
 		for(int i=0;i<width;i++)
 			for(int j=0;j<height;j++)
 				result[i][j]=matrix[i][j]/sum;
+		return result;
+	}
+
+	public static int[][] DoubleToInt(double[][] matrix) 
+	{
+		int[][] result=new int[matrix.length][matrix[0].length];
+		for(int i=0;i<matrix.length;i++)
+			for(int j=0;j<matrix[0].length;j++)
+				result[i][j]=(int) matrix[i][j];
 		return result;
 	}
 }
