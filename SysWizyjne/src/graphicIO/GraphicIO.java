@@ -70,7 +70,7 @@ public class GraphicIO
 			image=new BufferedImage(points.length, points[0].length, BufferedImage.TYPE_INT_RGB);
 			for(int y=0; y<points.length; y++)
 				for(int i=0; i<points[0].length;i++)
-					image.setRGB(i, y, points[i][y]);
+					image.setRGB(y, i, points[y][i]);
 		}
 		return image;		
 	}

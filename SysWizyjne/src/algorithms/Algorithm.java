@@ -70,7 +70,7 @@ public abstract class Algorithm
 				//creating files
 				for(int y=0;y<height;y++)
 				{
-					writeFiles[y]=new File(directory, name+"_"+y+"_"+position.toString()+".txt");
+					writeFiles[y]=new File(directory, name+"_"+y+"_"+Position.HORIZONTAL.toString()+".txt");
 					try 
 					{
 						writeFiles[y].createNewFile();
@@ -147,7 +147,7 @@ public abstract class Algorithm
 				//creating files
 				for(int x=0;x<width;x++)
 				{
-					writeFiles[x]=new File(directory, name+"_"+x+"_"+position.toString()+".txt");
+					writeFiles[x]=new File(directory, name+"_"+x+"_"+Position.VERTICAL.toString()+".txt");
 					try 
 					{
 						writeFiles[x].createNewFile();
@@ -254,7 +254,7 @@ public abstract class Algorithm
 			name=name.replace("_", "");
 			for(int x=0;x<width&&result;x++)
 			{
-				file=new File(directory, name+"_"+x+"_"+position.toString()+".txt");
+				file=new File(directory, name+"_"+x+"_"+Position.VERTICAL.toString()+".txt");
 				result=result&&file.exists();
 			}	
 		}		

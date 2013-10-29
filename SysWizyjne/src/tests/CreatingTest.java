@@ -18,13 +18,13 @@ public class CreatingTest
 		boolean result=true;
 		for(int i=0;i<2592;i++)
 		{
-			file=new File(dir+"\\car_"+i+"_HORIZONTAL");
+			file=new File(dir+"\\car_"+i+"_HORIZONTAL.txt");
 			if(file.exists())
 				file.delete();
 		}
 		for(int i=0;i<3888;i++)
 		{
-			file=new File(dir+"\\car_"+i+"_VERTICAL");
+			file=new File(dir+"\\car_"+i+"_VERTICAL.txt");
 			if(file.exists())
 				file.delete();
 		}
@@ -33,13 +33,13 @@ public class CreatingTest
 		
 		for(int i=0;i<2592&&result;i++)
 		{
-			file=new File(dir+"car_"+i+"_HORIZONTAL");
+			file=new File(dir+"\\car_"+i+"_HORIZONTAL.txt");
 			if(!file.exists())
 				result=false;
 		}
 		for(int i=0;i<3888&&result;i++)
 		{
-			file=new File(dir+"car_"+i+"_VERTICAL");
+			file=new File(dir+"\\car_"+i+"_VERTICAL.txt");
 			if(!file.exists())
 				result=false;
 		}
