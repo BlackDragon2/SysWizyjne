@@ -1,11 +1,14 @@
 package graphicIO;
 
+import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
+import utils.GraphicUtilities;
+import enums.GreyMethod;
 import enums.Position;
 
 /**
@@ -42,13 +45,35 @@ public class GraphicIO
 	 */
 	public static BufferedImage createImage(int[][] points)
 	{
-		BufferedImage image=new BufferedImage(points.length, points[0].length, BufferedImage.TYPE_INT_RGB);
+		return createImage(points, BufferedImage.TYPE_INT_RGB);
+	}
+	
+	/**
+	 * Method creating an image from an two-dimensional array of defined color models values.
+	 * @param points Two-dimensional array of RGB values.
+	 * @param type BufferedImage type.
+	 * @return Image corresponding to the array.
+	 */
+	public static BufferedImage createImage(int[][] points, int type)
+	{
+		BufferedImage image=new BufferedImage(points.length, points[0].length, type);
 		for(int x=0; x<points.length; x++)
 			for(int y=0; y<points[0].length;y++)
-				image.setRGB(x, y, points[x][y]);
+			{if(type!=BufferedImage.TYPE_BYTE_GRAY)
+				image.setRGB(x, y, points[x][y]);else image.setRGB(x, y, RGB(points[x][y]));
+			}
 		return image;		
 	}
 	
+	private static int RGB(int i) 
+	{
+		int result = 0;
+		result+= (i<< 16);
+		result+= (i<< 8);
+		result+=  i;
+		return result;
+	}
+
 	/**
 	 * Method creating an EPI-image from an two-dimensional array of RGB values.
 	 * @param points Two-dimensional array of RGB values.
@@ -80,14 +105,9 @@ public class GraphicIO
 	 * @param points Two-dimensional array of RGB values.
 	 * @return Image corresponding to the array.
 	 */
-	public static BufferedImage createGreyscaleImage(int[][] points)
-	{
-		BufferedImage image=new BufferedImage(points.length, points[0].length, BufferedImage.TYPE_BYTE_GRAY);
-		for(int x=0; x<points.length; x++)
-			for(int y=0; y<points[0].length;y++)
-				image.setRGB(x, y, points[x][y]);
-		return image;
-		
+	public static BufferedImage createGreyscaleImage(int[][] points, GreyMethod method)
+	{				
+		return createImage(GraphicUtilities.toGreyScale(points, method), BufferedImage.TYPE_BYTE_GRAY);		
 	}
 	
 	/**
@@ -123,5 +143,21 @@ public class GraphicIO
 			for(int y=0;y<image.getHeight();y++)
 				img[x][y]=image.getRGB(x, y);
 		return img;		
-	}	
+	}
+	
+	/**
+	 * Scales input image to given size (width and height).
+	 * @param inputImage - image to be scaled.
+	 * @param outputWidth - required length of image.
+	 * @param outputHeight - required height of image.
+	 * @return Scaled image.
+	 */
+	public static BufferedImage scaleImage(BufferedImage inputImage, int outputWidth, int outputHeight)
+	{
+		BufferedImage resizedImage = new BufferedImage(outputWidth, outputHeight, BufferedImage.TYPE_INT_RGB);
+		Graphics2D g = resizedImage.createGraphics();
+		g.drawImage(inputImage, 0, 0, outputWidth, outputHeight, null);
+		g.dispose();
+		return resizedImage;
+	}
 }

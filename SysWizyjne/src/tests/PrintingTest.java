@@ -1,5 +1,6 @@
 package tests;
 
+import enums.GreyMethod;
 import enums.Position;
 import graphicIO.GraphicIO;
 
@@ -47,5 +48,21 @@ public class PrintingTest
 		GraphicIO.saveImage(GraphicIO.createImage(epi3.get_pixels(),Position.VERTICAL),new File("D:\\images\\image1000Ver"+System.currentTimeMillis()+".jpg"));
 		GraphicIO.saveImage(GraphicIO.createImage(epi4.get_pixels(),Position.VERTICAL),new File("D:\\images\\image2000Ver"+System.currentTimeMillis()+".jpg"));
 		System.out.println("EPI images done");
+	}
+	
+	public static void test2(String dir, GreyMethod method)
+	{
+		File file=new File(dir);
+		EPILine epi;
+		int[][] horImage=new int[3888][2592];
+		System.out.println("Starting creation of horizontal image");
+		for(int i=0;i<2592;i++)
+		{
+			epi=new EPILine(file, i, Position.HORIZONTAL);
+			for(int j=0;j<3888;j++)
+				horImage[j][i]=epi.get_pixels()[0][j];		
+		}
+		GraphicIO.saveImage(GraphicIO.createGreyscaleImage(horImage, method),new File("D:\\images\\imageHor"+System.currentTimeMillis()+".jpg"));
+		System.out.println("Horizontal image done");
 	}
 }
