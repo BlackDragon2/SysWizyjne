@@ -48,7 +48,7 @@ public class MathUtilities
 	 * @return Two-dimensional matrix of [size]x[size], containing Gaussian smoothing operator values.
 	 */
 	public static double[][] GaussianMatrix(double phi, int size)
-	{System.out.println("gauss started");
+	{
 		return GaussianMatrix(phi, size, size);
 	}
 	
@@ -59,7 +59,7 @@ public class MathUtilities
 	 * @return Two-dimensional matrix, result of convolution.
 	 */
 	public static double[][] convolution(double[][] mask, double[][] matrix)
-	{System.out.println("con started");
+	{
 		double[][] result;
 		result=new double[matrix.length][matrix[0].length];
 		int width=matrix.length;
@@ -75,9 +75,9 @@ public class MathUtilities
 			for(int x=0;x<width;x++)
 			{
 				sum=0.0;
-				for(int i=-h;i<h;i++)
+				for(int i=-h;i<=h;i++)
 				{
-					for(int j=-w;j<w;j++)
+					for(int j=-w;j<=w;j++)
 					{
 						if(x-j>=0&&y-i>=0&&x-j<width&&y-i<height)
 							sum+=mask[j+w][i+h]*matrix[x-j][y-i];
@@ -96,7 +96,7 @@ public class MathUtilities
 	 * @return Two-dimensional matrix, result of convolution.
 	 */
 	public static double[][] convolution(double[][] mask, int[][] matrix)
-	{System.out.println("con started");
+	{
 		double[][] result;
 		result=new double[matrix.length][matrix[0].length];
 		int width=matrix.length;
@@ -105,16 +105,14 @@ public class MathUtilities
 		int h=(mask[0].length-1)/2;
 		double sum=0.0;
 		
-		mask=normalize(mask);
-		
 		for(int y=0;y<height;y++)
 		{
 			for(int x=0;x<width;x++)
 			{
 				sum=0.0;
-				for(int i=-h;i<h;i++)
+				for(int i=-h;i<=h;i++)
 				{
-					for(int j=-w;j<w;j++)
+					for(int j=-w;j<=w;j++)
 					{
 						if(x-j>=0&&y-i>=0&&x-j<width&&y-i<height)
 							sum+=mask[j+w][i+h]*matrix[x-j][y-i];
@@ -122,7 +120,7 @@ public class MathUtilities
 				}
 				result[x][y]=sum;				
 			}
-		}System.out.println("con ended");
+		}
 		return result;
 	}
 
@@ -156,17 +154,30 @@ public class MathUtilities
 	{
 		int width=matrix.length;
 		int height=matrix[0].length;
+		double max=matrix[0][0];
+		double min=matrix[0][0];
 		double[][] result=new double[width][height];
 		double sum=0.0;
 		for(int i=0;i<width;i++)
 			for(int j=0;j<height;j++)
-				sum+=matrix[i][j];
+			{
+				max=Math.max(max, matrix[i][j]);
+				min=Math.min(min, matrix[i][j]);
+			}
+		double dif=max-min;
 		for(int i=0;i<width;i++)
 			for(int j=0;j<height;j++)
-				result[i][j]=matrix[i][j]/sum;
+			{
+				result[i][j]=(matrix[i][j]-min)/dif;
+			}
 		return result;
 	}
 
+	/**
+	 * Method transforming double matrix to int matrix.
+	 * @param Matrix Two-dimensional double array representing the matrix.
+	 * @return Matrix with values tranformed to integer.
+	 */
 	public static int[][] DoubleToInt(double[][] matrix) 
 	{
 		int[][] result=new int[matrix.length][matrix[0].length];

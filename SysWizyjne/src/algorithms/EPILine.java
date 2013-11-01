@@ -106,6 +106,15 @@ public class EPILine
 		}
 	}
 	
+	/**
+	 * Method saving current object on the disc.
+	 * @param directory String path under which EPI should be saved.
+	 */
+	public void saveEPILine(String directory)
+	{
+		saveEPILine(new File(directory));
+	}
+	
 	
 	/**
 	 * Method setting object's fields from file on disc.

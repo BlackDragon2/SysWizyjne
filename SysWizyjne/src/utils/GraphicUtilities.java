@@ -12,7 +12,7 @@ public class GraphicUtilities
 {
 	public static double[][] gradient(GradientMask mask, int[][] image)
 	{
-		return MathUtilities.convolution(MathUtilities.normalize(mask.getMask()), image);		
+		return MathUtilities.convolution(mask.getMask(), image);		
 	}
 	
 	/**
@@ -98,6 +98,12 @@ public class GraphicUtilities
 		
 	}
 	
+	/**
+	 * Method transforming matrix of rbg values to matrix of grayscale ones.
+	 * @param matrix Input matrix of rbg values
+	 * @param method Method of grayscaling (AVERAGE, LIGHTNESS or LUMINOSITY)
+	 * @return matrix with grayscale values.
+	 */
 	public static int[][] toGreyScale(int[][] matrix, GreyMethod method)
 	{
 		int[][] result=new int[matrix.length][matrix[0].length];

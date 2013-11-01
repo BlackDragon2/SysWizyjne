@@ -1,11 +1,15 @@
 package tests;
 
+import enums.GradientMask;
 import enums.GreyMethod;
 import enums.Position;
 import graphicIO.GraphicIO;
 
+import java.awt.image.BufferedImage;
 import java.io.File;
 
+import utils.GraphicUtilities;
+import utils.MathUtilities;
 import algorithms.EPILine;
 
 public class PrintingTest 
@@ -55,6 +59,7 @@ public class PrintingTest
 		File file=new File(dir);
 		EPILine epi;
 		int[][] horImage=new int[3888][2592];
+		int[][] horImage2;
 		System.out.println("Starting creation of horizontal image");
 		for(int i=0;i<2592;i++)
 		{
@@ -64,5 +69,22 @@ public class PrintingTest
 		}
 		GraphicIO.saveImage(GraphicIO.createGreyscaleImage(horImage, method),new File("D:\\images\\imageHor"+System.currentTimeMillis()+".jpg"));
 		System.out.println("Horizontal image done");
+		System.out.println("Starting gradient creation");
+		horImage=GraphicUtilities.toGreyScale(horImage, GreyMethod.AVERAGE);
+		horImage2=MathUtilities.DoubleToInt(GraphicUtilities.gradient(GradientMask.PREWITTX, horImage));
+		GraphicIO.saveImage(GraphicIO.createImage(horImage2, BufferedImage.TYPE_BYTE_GRAY), "D:\\images\\xPRE.jpg");
+		horImage2=MathUtilities.DoubleToInt(GraphicUtilities.gradient(GradientMask.PREWITTY, horImage));
+		GraphicIO.saveImage(GraphicIO.createImage(horImage2, BufferedImage.TYPE_BYTE_GRAY), "D:\\images\\yPRE.jpg");
+		System.out.println("Prewitt done");
+		horImage2=MathUtilities.DoubleToInt(GraphicUtilities.gradient(GradientMask.ROBERTSX, horImage));
+		GraphicIO.saveImage(GraphicIO.createImage(horImage2, BufferedImage.TYPE_BYTE_GRAY), "D:\\images\\xROB.jpg");
+		horImage2=MathUtilities.DoubleToInt(GraphicUtilities.gradient(GradientMask.ROBERTSY, horImage));
+		GraphicIO.saveImage(GraphicIO.createImage(horImage2, BufferedImage.TYPE_BYTE_GRAY), "D:\\images\\yROB.jpg");
+		System.out.println("Roberts done");
+		horImage2=MathUtilities.DoubleToInt(GraphicUtilities.gradient(GradientMask.SOBELX, horImage));
+		GraphicIO.saveImage(GraphicIO.createImage(horImage2, BufferedImage.TYPE_BYTE_GRAY), "D:\\images\\xSOB.jpg");
+		horImage2=MathUtilities.DoubleToInt(GraphicUtilities.gradient(GradientMask.SOBELY, horImage));
+		GraphicIO.saveImage(GraphicIO.createImage(horImage2, BufferedImage.TYPE_BYTE_GRAY), "D:\\images\\ySOB.jpg");
+		System.out.println("Sobel done");
 	}
 }

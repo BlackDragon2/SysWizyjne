@@ -5,6 +5,7 @@ import enums.GreyMethod;
 import enums.Position;
 import graphicIO.GraphicIO;
 
+import java.awt.image.BufferedImage;
 import java.io.File;
 
 import utils.GraphicUtilities;
@@ -21,9 +22,10 @@ public class CDL extends Algorithm
 	@Override
 	public int[][] transform(File directory, Position position) 
 	{
-		
-		return null;
-	
+		int[][] img2;
+		int[][] img=GraphicIO.getImageInArray("D:\\images\\imageHor1383347242687.jpg");
+
+		return null;	
 	}
 
 }

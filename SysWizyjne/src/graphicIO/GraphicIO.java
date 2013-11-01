@@ -39,6 +39,36 @@ public class GraphicIO
 	}
 	
 	/**
+	 * Method saving image on disc as indicated file
+	 * @param img Matrix of RBG values representing an image.
+	 * @param file Path under which image should be saved.
+	 */
+	public static void saveImage(int[][] img, File file)
+	{
+		saveImage(createImage(img), file);
+	}
+	
+	/**
+	 * Method saving image on disc as indicated file
+	 * @param img Matrix of RBG values representing an image.
+	 * @param file Path as String under which image should be saved.
+	 */
+	public static void saveImage(int[][] img, String file)
+	{
+		saveImage(createImage(img), new File(file));
+	}
+	
+	/**
+	 * Method saving image on disc as indicated file
+	 * @param image Image to be saved.
+	 * @param file Path as String under which image should be saved.
+	 */
+	public static void saveImage(BufferedImage image, String file)
+	{
+		saveImage(image, new File(file));
+	}
+	
+	/**
 	 * Method creating an image from an two-dimensional array of RGB values.
 	 * @param points Two-dimensional array of RGB values.
 	 * @return Image corresponding to the array.
@@ -56,21 +86,28 @@ public class GraphicIO
 	 */
 	public static BufferedImage createImage(int[][] points, int type)
 	{
-		BufferedImage image=new BufferedImage(points.length, points[0].length, type);
+		BufferedImage image=new BufferedImage(points.length, points[0].length, BufferedImage.TYPE_INT_RGB);
 		for(int x=0; x<points.length; x++)
 			for(int y=0; y<points[0].length;y++)
-			{if(type!=BufferedImage.TYPE_BYTE_GRAY)
-				image.setRGB(x, y, points[x][y]);else image.setRGB(x, y, RGB(points[x][y]));
+			{
+				if(type!=BufferedImage.TYPE_BYTE_GRAY)
+					image.setRGB(x, y, points[x][y]);
+				else image.setRGB(x, y, RGB(points[x][y]));
 			}
 		return image;		
 	}
 	
-	private static int RGB(int i) 
+	/**
+	 * Supporting method transforming grayscale value to RBG to be later saved.
+	 * @param value Value of color in greyscale
+	 * @return RBG color as r=b=g=value
+	 */
+	private static int RGB(int value) 
 	{
 		int result = 0;
-		result+= (i<< 16);
-		result+= (i<< 8);
-		result+=  i;
+		result+= (value<< 16);
+		result+= (value<< 8);
+		result+=  value;
 		return result;
 	}
 
@@ -143,6 +180,16 @@ public class GraphicIO
 			for(int y=0;y<image.getHeight();y++)
 				img[x][y]=image.getRGB(x, y);
 		return img;		
+	}
+	
+	/**
+	 * Method transforming an image to two-dimensional array.
+	 * @param path String path to the file.
+	 * @return Two-dimensional array of RBG representing the image.
+	 */
+	public static int[][] getImageInArray(String path) 
+	{
+		return getImageInArray(new File(path));
 	}
 	
 	/**
