@@ -3,7 +3,7 @@ package utils;
 /**
  * Math supporting class. All methods are static.
  * @author Bartek
- * @version 1.0
+ * @version 1.1
  */
 public class MathUtilities 
 {
@@ -37,7 +37,7 @@ public class MathUtilities
 				power=(Math.pow((-width)/2+i,2)+Math.pow((-height)/2+j,2))/(2*Math.pow(phi, 2));
 				result[i][j]=(double)(1/(2*Math.PI*phi*phi)*Math.pow(Math.E, power));
 			}
-		}System.out.println("gauss ended");
+		}
 		return result;
 	}
 	
@@ -67,8 +67,6 @@ public class MathUtilities
 		int w=(mask.length-1)/2;
 		int h=(mask[0].length-1)/2;
 		double sum=0.0;
-		
-		mask=normalize(mask);
 		
 		for(int y=0;y<height;y++)
 		{
@@ -128,9 +126,23 @@ public class MathUtilities
 	/**
 	 * Method normalizing matrix e.g. mask
 	 * @param matrix Matrix to be normalized.
+	 * @param positive Boolean indicating if values in matrix are only positive or not (different normalization)
 	 * @return Normalized matrix.
 	 */
-	public static double[][] normalize(double[][] matrix) 
+	public static double[][] normalize(double[][] matrix, boolean positive) 
+	{
+		if(positive)
+			return PositiveNormalize(matrix);
+		else
+			return NegativeNormalize(matrix);
+	}
+	
+	/**
+	 * Method normalizing matrix e.g. mask with only positive values
+	 * @param matrix Matrix to be normalized.
+	 * @return Normalized matrix.
+	 */
+	public static double[][] PositiveNormalize(double[][] matrix)
 	{
 		int width=matrix.length;
 		int height=matrix[0].length;
@@ -146,18 +158,17 @@ public class MathUtilities
 	}
 	
 	/**
-	 * Method normalizing matrix e.g. mask
+	 * Method normalizing matrix e.g. mask with negative values
 	 * @param matrix Matrix to be normalized.
 	 * @return Normalized matrix.
 	 */
-	public static double[][] normalize(int[][] matrix) 
+	public static double[][] NegativeNormalize(double[][] matrix) 
 	{
 		int width=matrix.length;
 		int height=matrix[0].length;
 		double max=matrix[0][0];
 		double min=matrix[0][0];
 		double[][] result=new double[width][height];
-		double sum=0.0;
 		for(int i=0;i<width;i++)
 			for(int j=0;j<height;j++)
 			{
@@ -167,16 +178,14 @@ public class MathUtilities
 		double dif=max-min;
 		for(int i=0;i<width;i++)
 			for(int j=0;j<height;j++)
-			{
 				result[i][j]=(matrix[i][j]-min)/dif;
-			}
 		return result;
 	}
 
 	/**
 	 * Method transforming double matrix to int matrix.
 	 * @param Matrix Two-dimensional double array representing the matrix.
-	 * @return Matrix with values tranformed to integer.
+	 * @return Matrix with values transformed to integer.
 	 */
 	public static int[][] DoubleToInt(double[][] matrix) 
 	{
@@ -184,6 +193,21 @@ public class MathUtilities
 		for(int i=0;i<matrix.length;i++)
 			for(int j=0;j<matrix[0].length;j++)
 				result[i][j]=(int) matrix[i][j];
+		return result;
+	}
+
+	/**
+	 * Matrix multiply by scalar
+	 * @param value Multiplier
+	 * @param matrix Matrix to be multiplied
+	 * @return Multiplied matrix
+	 */
+	public static double[][] matrixMultiply(double value, double[][] matrix) 
+	{
+		double[][] result=new double[matrix.length][matrix[0].length];
+		for(int i=0;i<result.length;i++)
+			for(int j=0;j<result[0].length;j++)
+				result[i][j]=value*matrix[i][j];
 		return result;
 	}
 }

@@ -11,7 +11,7 @@ public class DirectAlgorithmRun {
 	{
 		CDL cld=new CDL();
 		//cld.compute(new File("C:\\Users\\Bartek\\Desktop\\semest IX\\wizyjne\\bikes_image-raw\\bikes_image-raw"), Position.HORIZONTAL);
-		cld.compute(new File("D:\\download\\car"), Position.HORIZONTAL);
+		cld.compute(new File("D:\\download\\car"), Position.HORIZONTAL, 10);
 	}
 
 }

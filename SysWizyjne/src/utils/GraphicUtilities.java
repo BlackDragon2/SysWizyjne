@@ -6,11 +6,28 @@ import enums.GreyMethod;
 /**
  * Supporting graphic methods
  * @author Bartek
- * @version 1.0
+ * @version 1.1
  */
 public class GraphicUtilities 
 {
+	/**
+	 * Method calculating image gradient (in grayscale)
+	 * @param mask Gradient mask (SOBELX, SOBELY, PREWITTX, PREWITTY ROBERTSX, ROBERTSY)
+	 * @param image Image as two-dimensional integer array (grayscale image).
+	 * @return Two-dimensional array of gradient values.
+	 */
 	public static double[][] gradient(GradientMask mask, int[][] image)
+	{
+		return MathUtilities.convolution(mask.getMask(), image);		
+	}
+	
+	/**
+	 * Method calculating image gradient (in grayscale)
+	 * @param mask Gradient mask (SOBELX, SOBELY, PREWITTX, PREWITTY ROBERTSX, ROBERTSY)
+	 * @param image Image as two-dimensional double array (grayscale image).
+	 * @return Two-dimensional array of gradient values.
+	 */
+	public static double[][] gradient(GradientMask mask, double[][] image)
 	{
 		return MathUtilities.convolution(mask.getMask(), image);		
 	}
@@ -121,6 +138,17 @@ public class GraphicUtilities
 	private static int max(int red, int green, int blue) 
 	{
 		return Math.min(Math.min(red, green), blue);
+	}
+
+	/**
+	 * Pixel multiply by scalar
+	 * @param value Multiplier
+	 * @param matrix Matrix to be multiplied
+	 * @return Multiplied matrix.
+	 */
+	public static double[][] pixelMultiply(double value, double[][] matrix) 
+	{
+		return MathUtilities.matrixMultiply(value, matrix);
 	}
 
 }

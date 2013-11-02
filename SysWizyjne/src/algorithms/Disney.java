@@ -13,7 +13,8 @@ public class Disney extends Algorithm {
 
 
 	@Override
-	public int[][] transform(File directory, Position position) {
+	public int[][] transform(File directory, Position position, double focalPoint) 
+	{
 		// TODO Auto-generated method stub
 		return null;
 	}

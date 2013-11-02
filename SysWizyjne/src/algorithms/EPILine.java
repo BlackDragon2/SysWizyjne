@@ -223,4 +223,24 @@ public class EPILine
 		return _position==Position.HORIZONTAL;
 	}
 
+	public static int[] loadConfig(File directory) 
+	{
+		int[] result=new int[4];
+		File config=new File(directory, directory.getName()+"_config.txt");
+		try 
+		{
+			Scanner scanner=new Scanner(config);
+			result[0]=scanner.nextInt();
+			result[1]=scanner.nextInt();
+			result[2]=scanner.nextInt();
+			result[3]=scanner.nextInt();
+			scanner.close();
+		} 
+		catch (FileNotFoundException e) 
+		{
+			e.printStackTrace();
+		}
+		return result;
+	}
+
 }

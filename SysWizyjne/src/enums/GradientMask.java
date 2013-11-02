@@ -3,7 +3,7 @@ package enums;
 /**
  * Enum class representing possible gradient masks.
  * @author Bartek
- * @version 1.0
+ * @version 1.1
  */
 public enum GradientMask 
 {

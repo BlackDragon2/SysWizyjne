@@ -1,0 +1,21 @@
+Plik configuracyjny
+
+Plik ten powinien znajdowac sie pod wskazanym katalogiem glownym, miec nazwe wedlug wzoru:
+nazwakatalogu_config.txt
+
+i zawierac
+
+dlugosc obrazkow
+wysokosc obrazkow
+liczbe plikow horyzontalnych
+liczbe plikow wertykalnych
+
+np
+
+W katalogu ...\\car
+
+car_config.txt
+3888
+2592
+15
+16

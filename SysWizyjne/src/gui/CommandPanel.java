@@ -9,6 +9,7 @@ import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
@@ -21,18 +22,21 @@ import algorithms.Disney;
 /**
  * Command panel
  * @author Bartek
- * @version 1.1
+ * @version 1.2
  */
 public class CommandPanel extends JPanel
 {
 
 	private static final long serialVersionUID = 1534280986442777249L;
+	private static final double _FOCAL=10;
 	
 	private DrawPanel _drawPanel;
 	private JFileChooser _fileChooser;
 	private JButton _openButton;
 	private JButton _startButton;
 	private JTextField _textField;
+	private JTextField _focalField;
+	private JLabel _focalLabel;
 	private JComboBox<Algorithm> _comboBox;
 	private JCheckBox _horizontalPosition;
 	private JCheckBox _verticalPosition;
@@ -53,14 +57,17 @@ public class CommandPanel extends JPanel
 		_openButton=new JButton("Open directory");
 		_startButton=new JButton("Start");
 		_textField=new JTextField();
+		_focalField=new JTextField();
 		_comboBox=new JComboBox<Algorithm>();
 		_horizontalPosition=new JCheckBox("Horizontal");
 		_verticalPosition=new JCheckBox("Vertical");
 		_createEPIButton=new JButton("Create EPI");
+		_focalLabel=new JLabel("Focal Point");
 		
 		setView();
 		
 		_textField.setAutoscrolls(true);
+		_focalField.setAutoscrolls(true);
 		
 		_fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
 		
@@ -106,7 +113,9 @@ public class CommandPanel extends JPanel
 					else
 					{
 						Algorithm algorithm=(Algorithm)_comboBox.getSelectedItem();
-						algorithm.compute(_directory, position);
+						String focal=_focalField.getText();
+						double focalPoint=focal.isEmpty()? _FOCAL : Double.parseDouble(focal);
+						algorithm.compute(_directory, position, focalPoint);
 					}
 				}				
 			}
@@ -177,6 +186,8 @@ public class CommandPanel extends JPanel
 				.addComponent(_comboBox, 0, MainFrame.COMMAND_PANEL_WIDTH, MainFrame.COMMAND_PANEL_WIDTH)
 				.addComponent(_horizontalPosition, 0, MainFrame.COMMAND_PANEL_WIDTH, MainFrame.COMMAND_PANEL_WIDTH)
 				.addComponent(_verticalPosition, 0, MainFrame.COMMAND_PANEL_WIDTH, MainFrame.COMMAND_PANEL_WIDTH)
+				.addComponent(_focalField, 0, MainFrame.COMMAND_PANEL_WIDTH, MainFrame.COMMAND_PANEL_WIDTH)
+				.addComponent(_focalLabel, 0, MainFrame.COMMAND_PANEL_WIDTH, MainFrame.COMMAND_PANEL_WIDTH)
 				.addComponent(_createEPIButton, 0, MainFrame.COMMAND_PANEL_WIDTH, MainFrame.COMMAND_PANEL_WIDTH));
 		layout.setVerticalGroup(layout.createSequentialGroup()
 				.addComponent(_openButton, 0, 30, 50)
@@ -188,7 +199,10 @@ public class CommandPanel extends JPanel
 				.addGap(40)
 				.addComponent(_comboBox, 0, 30, 50)
 				.addGap(60)
-				.addComponent(_startButton, 0, 30, 50));
+				.addComponent(_startButton, 0, 30, 50)
+				.addGap(80)
+				.addComponent(_focalLabel, 0, 30, 50)
+				.addComponent(_focalField, 0, 30, 50));
 		this.setLayout(layout);
 		
 	}

@@ -1,0 +1,9 @@
+Oraganizacja folderów:
+
+Oraganizacja od katalogiem wskazanym w manu aplikacji lub podanym jako parametr do DirectAlgorithmRuna powinna byc nastepujaca:
+
+plik config - patrz wzor w help
+folder Horizontal - zawierajacy obrazki do utworzenia horyzontalnych EPI
+folder Vertical - to samo dla pionowych EPI
+
+Uwaga: Pod podana sciezka beda zapisywane dokumenty tymczasowe m.in. txt z EPIkami, dlatego sugerowane jest sporo miejsca wolnego na partycji.

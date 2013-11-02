@@ -17,11 +17,11 @@ import java.io.IOException;
 public abstract class Algorithm 
 {
 
-	public void compute(File directory, Position position) 
+	public void compute(File directory, Position position, double focalPoint) 
 	{
 		if(!EPIExists(directory, position))
 			createEPI(directory, position);
-		int[][] depthMap=transform(directory, position);
+		int[][] depthMap=transform(directory, position, focalPoint);
 	}
 	
 	/**
@@ -267,6 +267,6 @@ public abstract class Algorithm
 	 * @param position Axis around which EPIs are calculated (HORIZONTAL, VERTICAL or BOTH)
 	 * @return Depth map corresponding to input images, as an array of point (x,y) and their corresponding color estimating the depth.
 	 */
-	public abstract int[][] transform(File directory, Position position);
+	public abstract int[][] transform(File directory, Position position, double focalPoint);
 
 }

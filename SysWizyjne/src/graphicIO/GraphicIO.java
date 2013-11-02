@@ -14,7 +14,7 @@ import enums.Position;
 /**
  * Class supporting loading and saving image/images. All methods are static.
  * @author Bartek
- * @version 1.0
+ * @version 1.1
  */
 public class GraphicIO 
 {
