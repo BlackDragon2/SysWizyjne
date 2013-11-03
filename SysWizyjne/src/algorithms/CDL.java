@@ -39,7 +39,7 @@ public class CDL extends Algorithm
 		double[][] Jyy;
 		double[][] dX;
 		double[][] dS;
-		double[][] l;
+		double[][] l=null;
 		double[][] r;
 		if(position==Position.HORIZONTAL||position==Position.BOTH)
 		{
@@ -60,8 +60,9 @@ public class CDL extends Algorithm
 				dS=GraphicUtilities.pixelMultiply(2.0, Jxy);
 				
 				//equation(6)
-				l=GraphicUtilities.pixelMultiply(focalPoint, GraphicUtilities.pixelDivide(dS, dX));
-			}
+				l=GraphicUtilities.pixelMultiply(-focalPoint, GraphicUtilities.pixelDivide(dS, dX));
+			}	
+				GraphicIO.saveImage(GraphicIO.createImage(MathUtilities.DoubleToInt(l), BufferedImage.TYPE_BYTE_GRAY), "D:\\images\\x.jpg");
 		}
 		if(position==Position.HORIZONTAL||position==Position.BOTH)
 		{

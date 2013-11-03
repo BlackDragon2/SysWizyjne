@@ -83,7 +83,7 @@ public class MathUtilities
 				}
 				result[x][y]=sum;				
 			}
-		}System.out.println("con ended");
+		}
 		return result;
 	}
 	
