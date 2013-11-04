@@ -87,4 +87,17 @@ public class PrintingTest
 		GraphicIO.saveImage(GraphicIO.createImage(horImage2, BufferedImage.TYPE_BYTE_GRAY), "D:\\images\\ySOB.jpg");
 		System.out.println("Sobel done");
 	}
+	
+	public static void test3()
+	{
+		File file=new File("D:\\images\\xROB.jpg");
+		int[][] grad=GraphicUtilities.toGreyScale(GraphicIO.getImageInArray(file), GreyMethod.AVERAGE);
+		double[][] gradientX=MathUtilities.IntToDouble(grad);
+		double[][] gaussian=MathUtilities.normalize(MathUtilities.GaussianMatrix(1, 3), true);
+		double[][] Jxx=GraphicUtilities.pixelMultiply(gradientX, gradientX);
+		GraphicIO.saveImage(GraphicIO.createImage(MathUtilities.DoubleToInt(Jxx), BufferedImage.TYPE_BYTE_GRAY), "D:\\images\\gradQuater.jpg");
+		Jxx=MathUtilities.convolution(gaussian, Jxx);
+		GraphicIO.saveImage(GraphicIO.createImage(MathUtilities.DoubleToInt(Jxx), BufferedImage.TYPE_BYTE_GRAY), "D:\\images\\Jxx.jpg");
+	}
+	
 }

@@ -35,7 +35,7 @@ public class MathUtilities
 			for(int j=0;j<height;j++)
 			{
 				power=(Math.pow((-width)/2+i,2)+Math.pow((-height)/2+j,2))/(2*Math.pow(phi, 2));
-				result[i][j]=(double)(1/(2*Math.PI*phi*phi)*Math.pow(Math.E, power));
+				result[i][j]=(double)(1/(2*Math.PI*phi*phi)*Math.pow(Math.E, -power));
 			}
 		}
 		return result;
@@ -208,6 +208,20 @@ public class MathUtilities
 		for(int i=0;i<result.length;i++)
 			for(int j=0;j<result[0].length;j++)
 				result[i][j]=value*matrix[i][j];
+		return result;
+	}
+	
+	/**
+	 * Method transforming int matrix to double matrix.
+	 * @param Matrix Two-dimensional int array representing the matrix.
+	 * @return Matrix with values transformed to double.
+	 */
+	public static double[][] IntToDouble(int[][] matrix) 
+	{
+		double[][] result=new double[matrix.length][matrix[0].length];
+		for(int i=0;i<matrix.length;i++)
+			for(int j=0;j<matrix[0].length;j++)
+				result[i][j]=matrix[i][j];
 		return result;
 	}
 }

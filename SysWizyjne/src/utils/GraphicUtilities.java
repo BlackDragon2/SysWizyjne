@@ -1,5 +1,6 @@
 package utils;
 
+import utils.MathUtilities;
 import enums.GradientMask;
 import enums.GreyMethod;
 
@@ -43,7 +44,7 @@ public class GraphicUtilities
 		double[][] result=new double[A.length][A[0].length];
 		for(int i=0;i<A.length;i++)
 			for(int j=0;j<A[0].length;j++)
-				result[i][j]=A[i][j]+B[i][j];
+				result[i][j]=Math.min(255, A[i][j]+B[i][j]);
 		return result;				
 	}
 	
@@ -58,7 +59,7 @@ public class GraphicUtilities
 		double[][] result=new double[A.length][A[0].length];
 		for(int i=0;i<A.length;i++)
 			for(int j=0;j<A[0].length;j++)
-				result[i][j]=A[i][j]-B[i][j];
+				result[i][j]=Math.max(0, A[i][j]-B[i][j]);
 		return result;				
 	}
 	
@@ -73,7 +74,7 @@ public class GraphicUtilities
 		double[][] result=new double[A.length][A[0].length];
 		for(int i=0;i<A.length;i++)
 			for(int j=0;j<A[0].length;j++)
-				result[i][j]=A[i][j]*B[i][j];
+				result[i][j]=(A[i][j]*B[i][j])/255;
 		return result;				
 	}
 	
@@ -148,7 +149,13 @@ public class GraphicUtilities
 	 */
 	public static double[][] pixelMultiply(double value, double[][] matrix) 
 	{
-		return MathUtilities.matrixMultiply(value, matrix);
+		double[][] result=MathUtilities.matrixMultiply(value, matrix);
+		for(int i=0;i<result.length;i++)
+		{
+			for(int j=0;j<result[0].length;j++)
+				result[i][j]=Math.min(255, Math.max(0, result[i][j]));
+		}
+		return result;
 	}
 
 }
